@@ -5,7 +5,7 @@ on:
 env:
   GO_VERSION: "1.17.2"
   LINUX_ARCHES: "amd64 arm arm64 s390x ppc64le mips64le"
-  REPOSITORY: flannelcni/flannel
+  REPOSITORY: sofascore/flannel
 
 jobs:
   build-and-push-images:
@@ -57,7 +57,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image for amd64
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -66,7 +65,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-amd64
 
       - name: Build and push Docker image for arm
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -75,7 +73,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-arm
 
       - name: Build and push Docker image for arm64
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -84,7 +81,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-arm64
 
       - name: Build and push Docker image for s390x
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -93,7 +89,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-s390x
 
       - name: Build and push Docker image for ppc64le
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -102,7 +97,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-ppc64le
         
       - name: Build and push Docker image for mips64le
-        if: github.repository_owner == 'flannel-io'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -157,7 +151,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Create and push manifest for multi-arch image
-        if: github.repository_owner == 'flannel-io'
         run: |
           # get artifacts from previous steps and integrate into one multi-arch manifest
           docker pull ${{ steps.meta.outputs.tags }}-amd64
